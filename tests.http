@@ -1,0 +1,29 @@
+# Use the Rest Client extension: REST Client
+# Link: https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+
+GET http://127.0.0.1:5555/api/population/state/:state/city/:city
+
+###
+
+GET http://127.0.0.1:5555/api/population/state/Florida/city/Orlando
+
+###
+
+GET http://127.0.0.1:5555/api/population/state/coloRado/city/denveR
+
+###
+
+GET http://127.0.0.1:5555/api/population/state/Fail/city/Fake
+
+###
+
+GET http://127.0.0.1:5555/api/population/state/Test/city/Fake
+
+###
+
+PUT http://127.0.0.1:5555/api/population/state/Test/city/Fake
+Content-Type: application/json
+
+{
+    "population": 99
+}
