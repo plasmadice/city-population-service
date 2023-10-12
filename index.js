@@ -9,22 +9,26 @@ app.use(express.text())
 // Set up Redis client
 const client = redis.createClient()
 client.connect()
-client.on("error", (err) => console.error({
-  message: "Error connecting to Redis",
-  redisError: err
-}))
+client.on("error", (err) =>
+  console.error({
+    message: "Error connecting to Redis",
+    redisError: err,
+  })
+)
 
 // Parse CSV and load into Redis
 const setupRedis = async () => {
   const rows = fs.readFileSync("./city_populations.csv", "utf8").split("\n")
 
-  rows.forEach(row => {
+  rows.forEach((row) => {
     const [city, state, population] = row.split(",")
-    client.set(`${state.toLowerCase()}-${city.toLowerCase()}`, Number(population.trim('\r')))
+    client.set(
+      `${state.toLowerCase()}-${city.toLowerCase()}`,
+      Number(population.trim("\r"))
+    )
   })
 
   console.log("Data loaded into Redis")
-
 }
 setupRedis()
 
@@ -36,10 +40,10 @@ app.get("/api/population/state/:state/city/:city", async (req, res) => {
 
   if (!population) {
     return res.status(404).send({
-      message: "City/State combo not found"
+      message: "City/State combo not found",
     })
   } else {
-    res.status(200).send(population)
+    res.status(200).send({ population })
   }
 })
 
@@ -50,20 +54,19 @@ app.put("/api/population/state/:state/city/:city", async (req, res) => {
 
   if (!state || !city || !population) {
     return res.status(400).send({
-      message: "Missing required parameters"
+      message: "Missing required parameters",
     })
   } else {
-
     const key = `${state.toLowerCase()}-${city.toLowerCase()}`
     const result = await client.get(key)
 
     if (!result) {
       res.status(201).send({
-        message: "City/State combo not found, creating new entry"
+        message: "City/State combo not found, creating new entry",
       })
     } else {
       res.status(200).send({
-        message: "City/State combo found, updating entry"
+        message: "City/State combo found, updating entry",
       })
     }
     await client.set(key, population)

@@ -4,24 +4,27 @@
 GET http://127.0.0.1:5555/api/population/state/:state/city/:city
 
 ###
-
-GET http://127.0.0.1:5555/api/population/state/Florida/city/Orlando
+# Test for city that exists
+GET http://127.0.0.1:5555/api/population/state/Florida/city/Jacksonville
 
 ###
-
+# Punctuation test for a city that exists
 GET http://127.0.0.1:5555/api/population/state/coloRado/city/denveR
 
 ###
-
-GET http://127.0.0.1:5555/api/population/state/Fail/city/Fake
-
-###
-
+# Check for a state that doesn't exist
 GET http://127.0.0.1:5555/api/population/state/Test/city/Fake
 
 ###
-
+# Add a new state and city
 PUT http://127.0.0.1:5555/api/population/state/Test/city/Fake23 
 Content-Type: text/plain
   
 99
+
+###
+# Overwrite an existing state and city
+PUT http://127.0.0.1:5555/api/population/state/Florida/city/Orlando
+Content-Type: text/plain
+  
+9001
