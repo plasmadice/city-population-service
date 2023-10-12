@@ -1,11 +1,12 @@
 # Use the Rest Client extension: REST Client
 # Link: https://marketplace.visualstudio.com/items?itemName=humao.rest-client
 
+# Format for GET and PUT requests, this will fail if ran as-is
 GET http://127.0.0.1:5555/api/population/state/:state/city/:city
 
 ###
 # Test for city that exists
-GET http://127.0.0.1:5555/api/population/state/Florida/city/Jacksonville
+GET http://127.0.0.1:5555/api/population/state/Alabama/city/Marion
 
 ###
 # Punctuation test for a city that exists
@@ -13,11 +14,11 @@ GET http://127.0.0.1:5555/api/population/state/coloRado/city/denveR
 
 ###
 # Check for a state that doesn't exist
-GET http://127.0.0.1:5555/api/population/state/Test/city/Fake
+GET http://127.0.0.1:5555/api/population/state/Foo/city/Bar
 
 ###
 # Add a new state and city
-PUT http://127.0.0.1:5555/api/population/state/Test/city/Fake23 
+PUT http://127.0.0.1:5555/api/population/state/Foo/city/Baz 
 Content-Type: text/plain
   
 99

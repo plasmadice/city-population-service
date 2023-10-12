@@ -29,16 +29,13 @@ npm start
 ### Example Usage
 
 ```bash
+# Test for city that exists
 GET /api/population/state/:state/city/:city
-GET http://127.0.0.1:5555/api/population/state/Florida/city/Orlando
+GET http://127.0.0.1:5555/api/population/state/Alabama/city/Marion
 
-PUT /api/population/state/:state/city/:city 
-# Body: {population: 12345}
+# Add a new state and city
+PUT http://127.0.0.1:5555/api/population/state/Foo/city/Baz 
+Content-Type: text/plain
 
-PUT http://127.0.0.1:5555/api/population/state/Test/city/Fake
-Content-Type: application/json
-
-{
-    "population": 99
-}
+99
 ```
