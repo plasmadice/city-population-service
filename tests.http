@@ -21,9 +21,7 @@ GET http://127.0.0.1:5555/api/population/state/Test/city/Fake
 
 ###
 
-PUT http://127.0.0.1:5555/api/population/state/Test/city/Fake
-Content-Type: application/json
-
-{
-    "population": 99
-}
+PUT http://127.0.0.1:5555/api/population/state/Test/city/Fake23 
+Content-Type: text/plain
+  
+99

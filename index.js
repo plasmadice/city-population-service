@@ -4,7 +4,7 @@ const fs = require("fs")
 
 // Set up Express
 const app = express()
-app.use(express.json())
+app.use(express.text())
 
 // Set up Redis client
 const client = redis.createClient()
@@ -46,7 +46,7 @@ app.get("/api/population/state/:state/city/:city", async (req, res) => {
 // put details into redis
 app.put("/api/population/state/:state/city/:city", async (req, res) => {
   const { state, city } = req.params
-  const population = parseInt(req.body.population)
+  const population = parseInt(req.body)
 
   if (!state || !city || !population) {
     return res.status(400).send({
@@ -55,9 +55,18 @@ app.put("/api/population/state/:state/city/:city", async (req, res) => {
   } else {
 
     const key = `${state.toLowerCase()}-${city.toLowerCase()}`
+    const result = await client.get(key)
 
+    if (!result) {
+      res.status(201).send({
+        message: "City/State combo not found, creating new entry"
+      })
+    } else {
+      res.status(200).send({
+        message: "City/State combo found, updating entry"
+      })
+    }
     await client.set(key, population)
-    res.sendStatus(200)
   }
 })
 
